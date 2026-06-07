@@ -1,0 +1,39 @@
+name: task_flow
+description: A smart task management app for students and professionals.
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # State Management
+  provider: ^6.1.2
+
+  # Local Storage (لحفظ تفضيلات الثيم فقط)
+  shared_preferences: ^2.2.2
+
+  # Notifications
+  flutter_local_notifications: ^16.3.0
+  permission_handler: ^11.3.0
+  timezone: ^0.9.2
+ # flutter_native_timezone: ^2.0.0
+
+  # Date & Time
+  intl: ^0.18.1
+
+  # Charts
+  fl_chart: ^0.66.0
+
+
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.0
+
+flutter:
+  uses-material-design: true

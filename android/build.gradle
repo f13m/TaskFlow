@@ -1,0 +1,45 @@
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
+
+rootProject.buildDir = "../build"
+subprojects {
+    project.buildDir = "${rootProject.buildDir}/${project.name}"
+}
+subprojects {
+    project.evaluationDependsOn(":app")
+}
+
+tasks.register("clean", Delete) {
+    delete rootProject.buildDir
+}
+subprojects {
+    def configureProject = { project ->
+        // تأكد من وجود أي إعدادات خاصة هنا إذا كانت موجودة سابقاً
+        if (project.hasProperty('android')) {
+            project.android {
+                if (namespace == null) {
+                    namespace = "com.example.task_flow" // تأكد من وضع اسم الـ package الخاص بك هنا
+                }
+            }
+        }
+    }
+
+    if (project.state.executed) {
+        configureProject(project)
+    } else {
+        project.afterEvaluate { configureProject(project) }
+    }
+}
+subprojects {
+    project.configurations.all {
+        resolutionStrategy.eachDependency { details ->
+            if (details.requested.group == 'org.jetbrains.kotlin') {
+                details.useVersion "1.8.22"
+            }
+        }
+    }
+}
